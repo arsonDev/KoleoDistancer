@@ -4,7 +4,7 @@ Aplikacja obliczająca dystans między stacjami
 ## Jak uruhcomic
 ### Spobób 1
 - Pobierz Android Studio </br>
-- Skompiluj prjekt i nacisnij start </br>
+- Skompiluj projekt i nacisnij start </br>
 ### Sposób 2
 - Pobierz plik app-debug.apk z zasobów repozytorium i zainstaluj na urządzeniu
 

@@ -1,7 +1,7 @@
 # KoleoDistancer
 Aplikacja obliczająca dystans między stacjami
 
-## Jak uruhcomic
+## Jak uruchomic
 ### Spobób 1
 - Pobierz Android Studio </br>
 - Skompiluj projekt i nacisnij start </br>

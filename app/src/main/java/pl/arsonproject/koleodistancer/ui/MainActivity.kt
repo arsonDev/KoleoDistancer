@@ -1,11 +1,15 @@
 package pl.arsonproject.koleodistancer.ui
 
+import android.Manifest
+import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding.vm = viewModel
 
         setObservables()
+        checkPermission()
     }
 
     override fun onResume() {
@@ -79,5 +84,59 @@ class MainActivity : AppCompatActivity() {
                     }).show()
             }
         })
+    }
+
+    private fun checkPermission(): Boolean {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.INTERNET
+            ) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission_group.STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.INTERNET) || shouldShowRequestPermissionRationale(Manifest.permission_group.STORAGE)) {
+                AlertDialog.Builder(this)
+                    .setTitle("Wymagane uprawnienia")
+                    .setMessage("Uprawnienia są potrzebne aby obliczyć dystans pomiedzy punktami")
+                    .setNegativeButton(
+                        "Odmów"
+                    ) { dialogInterface, i ->
+                        Snackbar.make(
+                            mainView,
+                            "Uprawnienia są wymagane",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .setAction("Przyznaj") {
+                                ActivityCompat.requestPermissions(
+                                    this@MainActivity,
+                                    arrayOf(Manifest.permission.INTERNET,Manifest.permission_group.STORAGE),
+                                    1001
+                                )
+                            }
+                    }
+                    .setPositiveButton(
+                        "Przyznaj"
+                    ) { dialogInterface, i ->
+                        ActivityCompat.requestPermissions(
+                            this@MainActivity,
+                            arrayOf(Manifest.permission.INTERNET,Manifest.permission_group.STORAGE),
+                            1001
+                        )
+                    }
+                    .create()
+                    .show()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this@MainActivity,
+                    arrayOf(Manifest.permission.INTERNET),
+                    1001
+                )
+            }
+        }
+        return ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.INTERNET
+        ) == PackageManager.PERMISSION_GRANTED
     }
 }

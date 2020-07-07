@@ -2,7 +2,7 @@
 Aplikacja obliczająca dystans między stacjami
 
 ## Jak uruchomic
-### Spobób 1
+### Sposób 1
 - Pobierz Android Studio </br>
 - Skompiluj projekt i nacisnij start </br>
 ### Sposób 2
